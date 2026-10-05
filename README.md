@@ -1,13 +1,16 @@
 # Dark Colony Ultimate - installer
 
 *Dark Colony* (Strategic Simulations, 1997) and its expansion *The Council Wars* rebuilt for modern PCs, from **your
-own original discs**. This repository is the installer only: it holds nothing of the game itself.
+own original discs**. This repository is the installer only: it holds nothing of the game itself - no original
+executable, no game data, no music and no patched executable.
 
 What you get: one executable, **Dark Colony Ultimate**, with every campaign in its main menu (Dark Colony, the Academy,
-Council Wars, the 22 missions of the ozi_ns pack), any screen resolution from 640x480 to 3840x1080, no CD check, the
-battlefield interface in the classic metal style or a new console style, the CD soundtrack as MP3, a Windows-aware
-window (DPI, Alt+Tab, two monitors), a frame limiter, online play against players and the game's own AI through a free
-relay server with a replay viewer, and the map editor with every greyed-out feature unlocked.
+Council Wars, the 22 missions of the ozi_ns pack) and one LOAD GAME for all of their saves, any screen resolution from
+640x480 to 3840x1080, no CD check, the battlefield interface in the classic metal style or a new console style, the CD
+soundtrack as MP3, a Windows-aware window (DPI, Alt+Tab, two monitors, fast screen loads), a frame limiter, no intro
+movie at start-up, online play against players and the game's own AI through a free relay server with a replay viewer,
+and the map editor with every greyed-out feature unlocked. Every fix, what it repairs or adds and when it came:
+[`CHANGELOG.md`](CHANGELOG.md).
 
 ## What you need
 
@@ -38,23 +41,38 @@ Step by step, with every page and option explained: [`PATCH_HOWTO.TXT`](PATCH_HO
 ```
 INSTALL.CMD -InstallDir "%USERPROFILE%\Documents\Dark Colony" -CouncilWarsDisc D:\ -DarkColonyDisc "E:\Dark Colony.bin" -All -Resolution 1920x1080 -Theme dark -DesktopShortcut
 INSTALL.CMD -All -Resolution 1024x768 -Theme dark          (an existing game folder beside the package)
-INSTALL.CMD -List                                          (every fix with its byte edits)
+INSTALL.CMD -List -Detail                                  (every fix with its byte edits)
+INSTALL.CMD -Verify "Dark Colony Ultimate.exe"             (which fixes an exe carries)
 ```
 
 ## What is in the package
 
-* `INSTALL.CMD` - the starter (runs the script below with Windows PowerShell).
-* `patcher/Apply-DarkColonyPatches.ps1` - the patcher: a plain-text PowerShell script in which every byte it changes in
-  the game's executables is listed with its reason. Open it in Notepad. It writes the patched executables from the
-  untouched originals and never modifies them.
-* `patcher/game/`, `patcher/editor/` - the project's own data files, copied into the game folder: the painted menu
-  backdrops and HUD frames per resolution, the console-style interface banks, the high-resolution icon, the ozi_ns
-  mission pack, the tracer bullets, the map editor's runtime DLLs and the Atlantis block set.
+* `INSTALL.CMD` - the starter (runs the script below with Windows PowerShell and `-ExecutionPolicy Bypass` for that one
+  run).
+* `patcher/Apply-DarkColonyPatches.ps1` - the patcher (version 2.5, build 20261005.1354): a plain-text PowerShell
+  script in which every byte it changes in the game's executables is listed with its reason. Open it in Notepad. It
+  writes the patched executables from the untouched originals, never modifies them, and compares the result with the
+  SHA-256 of the reference build. It also holds the disc file list, the disc reader and the GIF codec that builds the
+  interface set for the chosen resolution.
+* `patcher/game/` - the project's own data files, copied into the game folder before Dark Colony Ultimate is patched:
+  the painted menu backdrops and HUD frames per resolution (`HD_SRC/<WxH>/`, seven sizes), the console-style banks and
+  the redrawn clock dial of the dark interface, the logo animations re-baked for the HD sizes, the tracer bullets with
+  their weapon tables, the high-resolution icon `DC_HD.ICO`, `DEFAULT_SERVER.TXT` (the relay server), the rewritten
+  main-menu script, and the ozi_ns mission pack `ozi_ns/` (22 missions, briefings, texts, sounds) with the pack's units
+  in `exp/`.
+* `patcher/editor/` - the same for the map editor's folder: its Borland runtime DLLs and the Atlantis block set
+  `scenario/atlantis.set`.
+* `PATCH_HOWTO.TXT` (the player's guide), `CHANGELOG.md`, `LICENSE` (AGPLv3), this file.
+
+Not in the package, by design: the game (every file of the two discs, including `ENGEXP16.EXE` and `maped.exe`), the
+MP3 soundtrack (ripped from your discs at install time), any patched executable, and the interface-set folders
+`HD_<height>P` (built on your PC by the installer).
 
 Which disc holds which game file, and how every fix was found, is documented in the sister repositories:
 [Dark-Colony](https://github.com/endotermic/Dark-Colony) (the game files and this package's source) and
-[Dark-Colony-Server](https://github.com/endotermic/Dark-Colony-Server) (the relay server, the patch tools, the
-reverse-engineering notes). This repository is refreshed from them with `tools/publish_installer.py`.
+[Dark-Colony-Server](https://github.com/endotermic/Dark-Colony-Server) (the relay server, the patch tools, the generator
+of the script, the reverse-engineering notes). This repository is refreshed from them with
+`tools/publish_installer.py` of Dark-Colony-Server.
 
 ## Credits
 
