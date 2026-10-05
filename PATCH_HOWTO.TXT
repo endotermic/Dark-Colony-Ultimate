@@ -2,13 +2,16 @@
   DARK COLONY / COUNCIL WARS  -  HOW TO PATCH THE GAME YOURSELF
 =====================================================================
 
-This repository (Dark-Colony-Ultimate) is the INSTALLER PACKAGE only -
-the same files that are published on ModDB.  It holds NOTHING of the
-game itself: no original executable, no game data, no music and no
-patched executable.  The game comes from YOUR two original discs (or
-from the full Dark-Colony repository, see "HOWTO" 1b); the installer
-copies it into a game folder and builds the patched executables there,
-on your PC.  The installer knows two executables:
+This file belongs to the INSTALLER PACKAGE - INSTALL.CMD, this file and
+the folder patcher\ - published on ModDB and as the repository
+Dark-Colony-Ultimate, and carried in the root of the full Dark-Colony
+repository as well.  The package holds NOTHING of the game itself: no
+original executable, no game data, no music and no patched executable.
+The game comes from YOUR two original discs - or is already there when
+the package sits in the full Dark-Colony repository (see "HOWTO" 1b);
+the installer copies it into a game folder when needed and builds the
+patched executables there, on your PC.  The installer knows two
+executables:
 
   * the UNTOUCHED ORIGINALS from 1997/98, taken from your discs
         ENGEXP16.EXE     The Council Wars (EXPENG\ENGEXP16.EXE on the
@@ -111,21 +114,22 @@ What makes it trustworthy:
 
 
 ---------------------------------------------------------------------
-  WHAT IS IN THIS REPOSITORY
+  WHAT IS IN THE PACKAGE
 ---------------------------------------------------------------------
 
    INSTALL.CMD          the starter (double-click it)
    PATCH_HOWTO.TXT      this file
-   README.md            the short version of this file
-   CHANGELOG.md         every fix - the bug it repairs or the feature it
-                        adds, with its date - and the installer's own
-                        history
-   LICENSE              the GNU Affero General Public License v3
-   .gitattributes       keeps INSTALL.CMD's Windows line endings in
-                        every checkout and ZIP
+   patcher\             the patcher and its data files, see below
+
+   The Dark-Colony-Ultimate repository adds README.md (the short
+   version of this file), CHANGELOG.md (every fix - the bug it repairs
+   or the feature it adds, with its date - and the installer's own
+   history), LICENSE (the GNU Affero General Public License v3) and
+   .gitattributes (keeps INSTALL.CMD's Windows line endings in every
+   checkout and ZIP).  The full Dark-Colony repository adds the game.
 
    patcher\Apply-DarkColonyPatches.ps1
-        the patcher (version 2.5, build 20261005.1354, generated on
+        the patcher (version 2.6, build 20261005.1520, generated on
         5 Oct 2026 from the Dark-Colony-Server and Dark-Colony
         repositories): the two builds with every fix and every byte
         edit, the list of which game file comes from which disc, the
@@ -138,10 +142,12 @@ What makes it trustworthy:
                         patched the whole folder is copied into the
                         game folder (a file that is already there and
                         identical is left alone):
-        HD_SRC\<WxH>\   the five painted pictures per screen size -
-                        BACKDROP.GIF, INTRG.GIF, INTRO.GIF (the menu
-                        planet), INTRFACE.GIF (the dark HUD frame),
-                        INTRFACE_LIGHT.GIF (the classic metal frame) -
+        HD_SRC\<WxH>\   the four painted pictures per screen size -
+                        INTRG.GIF (the main menu's planet), BACKDROP.GIF
+                        (the same planet without its bottom band, under
+                        every pre-battle screen), INTRFACE.GIF (the dark
+                        HUD frame), INTRFACE_LIGHT.GIF (the classic metal
+                        frame) -
                         for 1024x768, 1280x1024, 1280x720, 1280x800,
                         1920x1080, 1920x1200 and 3840x1080; the
                         interface set of the chosen size is built from
@@ -180,7 +186,7 @@ What makes it trustworthy:
         scenario\atlantis.set
                         the Atlantis block set (fix "blocksets")
 
-   NOT in the repository, by design: the game (every file of the two
+   NOT in the package, by design: the game (every file of the two
    discs, including ENGEXP16.EXE, maped.exe and the movies), the
    Classic dc16.exe, the MP3 soundtrack (ripped from your discs at
    install time), any patched executable, and the interface-set
@@ -193,7 +199,7 @@ What makes it trustworthy:
 
 1) Get the installer.  Two ways:
 
-   a) THE INSTALLER PACKAGE - this repository
+   a) THE INSTALLER PACKAGE - the repository
 
         https://github.com/endotermic/Dark-Colony-Ultimate
 
@@ -296,7 +302,7 @@ What makes it trustworthy:
       Patch step, so the "music" fix has its files.  An .iso image or a
       mounted .iso has no audio tracks; the page then says that the
       music is left out (the "music" fix is then skipped - it needs
-      the eight MP3 files, which are not in this repository).  "Next >"
+      the eight MP3 files, which are not in the package).  "Next >"
       reads the discs, checks that they are the right ones (the
       English Council Wars disc: ENGEXP16.EXE is verified by SHA-256),
       checks the audio tracks and the MP3 encoder, and takes
@@ -616,9 +622,9 @@ What makes it trustworthy:
    Patches.ps1, the data files in patcher\game and patcher\editor that
    this project made, and the tools and notes in the Dark-Colony-Server
    repository - is free software under the GNU Affero General Public
-   License, version 3 (AGPLv3; the text is the file LICENSE in the
-   root of this repository).  You may use, change and share it, as
-   long as your version stays open under the same license.
+   License, version 3 (AGPLv3; the text is the file LICENSE of the
+   Dark-Colony-Ultimate repository).  You may use, change and share it,
+   as long as your version stays open under the same license.
 
    NOT covered by that license, because they are not ours:
 

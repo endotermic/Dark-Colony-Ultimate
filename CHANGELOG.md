@@ -9,7 +9,7 @@ for the installer itself. Dates are the commit dates in the two repositories the
 The patcher builds two executables: **Dark Colony Ultimate** (from the Council Wars original `ENGEXP16.EXE`: Council
 Wars plus the Dark Colony, Academy and OZI campaigns) and **Dark Colony Map Editor** (from `maped.exe`). Installer
 versions exist since 2 October 2026; the history before that is dated. Versions that changed nothing for the player
-(2.5: how the package is distributed) are not listed.
+(2.5: how the package is distributed; 2.6: a picture that no screen reaches no longer ships) are not listed.
 
 ## Installer versions
 
