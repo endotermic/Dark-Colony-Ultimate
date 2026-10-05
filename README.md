@@ -62,3 +62,17 @@ Dark Colony and The Council Wars are by Alternative Reality Technologies and Str
 not affiliated with the rights holders and distributes none of their files. The ozi_ns mission pack and the map editor
 research are by ozi_ns ([darkcolony.pl](https://www.darkcolony.pl/)). The Mars backdrop uses NASA's MOLA and USGS Viking
 data.
+
+## License
+
+The installer - `INSTALL.CMD`, the patcher script, the data files this project made in `patcher/game` and
+`patcher/editor`, and the tools and notes in Dark-Colony-Server - is free software under the
+**GNU Affero General Public License v3** ([LICENSE](LICENSE)): use it, change it, share it, as long as your version stays
+open under the same license.
+
+Not ours and not under that license: the game itself (the installer takes it from your discs and ships none of its
+files), the ozi_ns mission pack in `patcher/game/ozi_ns` and the pack's units in `patcher/game/exp` (by ozi_ns, carried
+with credit), the map editor's Borland runtime DLLs in `patcher/editor` (Borland redistributables), and the pictures
+derived from the game's own art (menu backdrops with the DC logo, the metal HUD frame, the banks with the original unit
+portraits) - our work on their art, shared as a mod of their game. The patched executables the installer writes on your
+PC are the original 1997/98 programs with our byte changes.
