@@ -49,7 +49,7 @@ INSTALL.CMD -Verify "Dark Colony Ultimate.exe"             (which fixes an exe c
 
 * `INSTALL.CMD` - the starter (runs the script below with Windows PowerShell and `-ExecutionPolicy Bypass` for that one
   run).
-* `patcher/Apply-DarkColonyPatches.ps1` - the patcher (version 2.7, build 20261007.0755): a plain-text PowerShell
+* `patcher/Apply-DarkColonyPatches.ps1` - the patcher (version 2.8, build 20261007.1009): a plain-text PowerShell
   script in which every byte it changes in the game's executables is listed with its reason. Open it in Notepad. It
   writes the patched executables from the untouched originals, never modifies them, and compares the result with the
   SHA-256 of the reference build. It also holds the disc file list, the disc reader and the GIF codec that builds the

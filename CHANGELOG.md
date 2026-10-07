@@ -13,6 +13,16 @@ versions exist since 2 October 2026; the history before that is dated. Versions 
 
 ## Installer versions
 
+### 2.8 - 7 October 2026
+
+- **Bugfix: the SOUND slider changes the sound effects only, not the music** (fix `volume`). The options screen's
+  SOUND -/+ used to set the game's per-application volume in the Windows Volume Mixer, which scaled everything the
+  game plays, the music included, so the music could never be louder than the SOUND level, and Windows kept the
+  reduced level between runs. The level now attenuates the effects themselves (10 = unchanged, 5 = about -11 dB,
+  0 = silent), a press re-applies it to every playing sound, and the music keeps its own CDROM VOLUME / MUSIC
+  slider. A press of SOUND also sets the game's Windows per-application volume back to 100 %, so a game an older
+  build left quiet in the Volume Mixer recovers with one press.
+
 ### 2.7 - 7 October 2026
 
 - **Bugfix: the menu hum no longer plays under the intro movies** (fix `intro`). The main menu's looping background
