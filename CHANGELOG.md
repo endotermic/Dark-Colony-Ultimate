@@ -13,6 +13,12 @@ versions exist since 2 October 2026; the history before that is dated. Versions 
 
 ## Installer versions
 
+### 2.7 - 7 October 2026
+
+- **Bugfix: the menu hum no longer plays under the intro movies** (fix `intro`). The main menu's looping background
+  sound went on under the DARK COLONY and COUNCIL WARS intros; it is stopped right before the movie and started again
+  when the movie ends, so the race and name screen hums as before.
+
 ### 2.4 - 5 October 2026
 
 - **No intro movie at start-up** (fix `intro`): the main menu comes up at once; DARK COLONY and COUNCIL WARS each
@@ -201,10 +207,11 @@ versions exist since 2 October 2026; the history before that is dated. Versions 
   Dark Colony campaign and its training missions from the Council Wars executable, saves in `save\`. **Tracer
   bullets**: the human trooper and the Lieutenant fire a visible streak, the Gray trooper keeps its glowing bolt at
   every upgrade level, the Gray commander's pistol fires it too.
-- **No intro movie at start-up** (`intro`; 5 Oct 2026). The game played the Council Wars intro before the menu whatever
-  you were going to do, and the Dark Colony intro was never played by this build. The menu comes up at once; DARK
-  COLONY plays the Dark Colony intro and COUNCIL WARS the Council Wars intro right before the race and name screen;
-  ACADEMY, OZI MISSIONS and LOAD GAME play nothing; SPACE skips as before.
+- **No intro movie at start-up** (`intro`; 5 Oct 2026, hum 7 Oct 2026). The game played the Council Wars intro before
+  the menu whatever you were going to do, and the Dark Colony intro was never played by this build. The menu comes up
+  at once; DARK COLONY plays the Dark Colony intro and COUNCIL WARS the Council Wars intro right before the race and
+  name screen; ACADEMY, OZI MISSIONS and LOAD GAME play nothing; SPACE skips as before. Since 7 Oct 2026 the menu's
+  looping background hum is stopped before the movie and started again after it (it used to play on under the movie).
 - **High-resolution icon** (`icon`; 25 Sep 2026). The exe carried a 32x32 16-colour icon that Windows blew up into a
   blur on the desktop, in Explorer and on the taskbar; now every size from 16 to 256 pixels, and the game window and
   the taskbar show it too.
