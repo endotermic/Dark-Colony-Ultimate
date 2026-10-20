@@ -13,6 +13,30 @@ versions exist since 2 October 2026; the history before that is dated. Versions 
 
 ## Installer versions
 
+### 2.9 - 20 October 2026
+
+- **Bugfix: the game starts under Wine's 64-bit-only "wow64" mode** (fix `wow64`, last in `-All`). Under Wine 10.0 to
+  10.13 run without a 32-bit Wine (the default on Ubuntu 26.10, which ships no wine32 package) the game died before
+  its first screen with "virtual_setup_exception stack overflow" in Wine's log. Four routines of the game's Watcom
+  run-time save and restore the GS segment register around their body, and on x86-64 Linux a write to GS, even of
+  the value it already holds, clears the base Wine's 64-bit side keeps its thread block at; the fault handler needs
+  that same block, faults again, and the recursion exhausts the stack (Wine bug 58141, fixed upstream in Wine
+  10.14). The game never uses GS, so the seven `push gs` / `pop gs` become two-byte NOPs: fourteen bytes, the stacks
+  stay balanced, nothing moves. Windows and the classic 32-bit Wine run the game either way. The map editor is
+  unchanged.
+- **The patcher runs on Linux, with desktop launchers** (PowerShell 7, no Windows). The same command line under
+  `pwsh` writes byte-identical executables; `-DesktopShortcut` now puts `.desktop` launchers for Dark Colony Ultimate
+  and the map editor on the desktop that start the exes with Wine from the game folder, marked as trusted, with the
+  256x256 image of `DC_HD.ICO` installed as the themed icon. The game's launcher runs a small start script beside the
+  exe, `Dark Colony Ultimate.sh`, which on a GNOME Wayland desktop sets the display scale to 100 % while the game
+  runs and restores it when the game quits: Wine 10.0's Wayland driver draws the full-screen game in the desktop's
+  scaled pixels, so at 125 % the picture was enlarged from the top-left corner and cropped. Outside a GNOME Wayland
+  session the script just starts the game. The exe itself is untouched by the launcher; `-Verify` says the same as
+  before. The installer window and the MP3 encoder of the disc install stay Windows-only.
+- `PATCH_HOWTO.TXT` gains the section *ON LINUX, WITHOUT WINDOWS*: installing `pwsh`, the OpenSSL 1.1 or 3 it needs
+  for its SHA-256 checks (Ubuntu 26.10 ships only OpenSSL 4), why Wine's own `powershell.exe` cannot run the script,
+  and how to switch Wine to its Wayland driver when the game sits small in the corner of a black screen.
+
 ### 2.8 - 7 October 2026
 
 - **Bugfix: the SOUND slider changes the sound effects only, not the music** (fix `volume`). The options screen's

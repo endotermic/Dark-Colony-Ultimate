@@ -523,7 +523,7 @@ What makes it trustworthy:
                      icon (the high-resolution icon and the per-monitor
                        DPI-aware manifest, so Windows never scales the
                        full-screen picture),
-                     online, last (the ONLINE WAR button: a room
+                     online (the ONLINE WAR button: a room
                        browser for the relay server, TLS to port 8889,
                        the REPLAY ONLINE GAME button: the relay's
                        recorded battles, watched from a participant's
@@ -537,7 +537,18 @@ What makes it trustworthy:
                        the Name: and Server: lines of both screens - a
                        file of the earlier form that still holds only
                        the shipped address is upgraded, an existing file
-                       with your own relay address is never overwritten)
+                       with your own relay address is never overwritten),
+                     wow64, last (19 Oct 2026: the four Watcom callback
+                       wrappers no longer push and pop the GS segment
+                       register - seven two-byte NOPs - because under
+                       Wine's 64-bit-only "wow64" mode, Wine 10.0 to
+                       10.13 as Ubuntu 26.10 installs it without wine32,
+                       a GS write cleared the base Wine's 64-bit side
+                       keeps its thread block at and the game died
+                       before its first screen with a
+                       "virtual_setup_exception stack overflow"; Wine
+                       bug 58141, fixed in Wine 10.14; Windows and the
+                       classic 32-bit Wine run the game either way)
                      = 22 fixes with the dark interface, 21 with the
                        light one (no console), 20 at 640x480 (no
                        resolution, no console)
@@ -592,6 +603,88 @@ What makes it trustworthy:
      unmanaged PC and copy the written game folder over - "Inspect an
      exe" / -Verify on any PC that can run the script shows what a
      copy carries.
+
+
+---------------------------------------------------------------------
+  ON LINUX, WITHOUT WINDOWS
+---------------------------------------------------------------------
+
+   The patcher runs under PowerShell 7 on Linux as well, from the
+   command line.  Install PowerShell 7 ("pwsh") from Microsoft - your
+   distribution's package, the snap, or the linux-x64 tarball from
+   github.com/PowerShell/PowerShell/releases unpacked anywhere - and
+   run, from the repository folder,
+
+        pwsh -NoProfile -File patcher/Apply-DarkColonyPatches.ps1 -All -Resolution 1024x768 -Theme dark
+
+   with your screen size and -Theme light or dark, exactly as under
+   COMMAND LINE above; -List, -Verify and the other options work the
+   same way (write the paths with forward slashes).  The executables
+   it writes are byte-identical to the Windows build, and the script
+   says so.  Start them with Wine as usual.
+
+   -DesktopShortcut works here too: instead of a Windows .lnk it puts
+   a "Dark Colony Ultimate.desktop" and "Dark Colony Map Editor.desktop"
+   launcher on your desktop that starts the exe with Wine from the game
+   folder, already marked as trusted - a double click runs it.  The
+   game's icon goes to ~/.local/share/icons/hicolor/256x256/apps/
+   dark-colony.png (the 256x256 image of DC_HD.ICO), which every
+   desktop shows.  The game's launcher runs a small start script,
+   "Dark Colony Ultimate.sh" beside the exe, which on a GNOME Wayland
+   desktop sets the display scale to 100 % while the game runs and
+   puts it back when the game quits (see the last point below); the
+   exe itself is not touched, -Verify says the same as before.
+
+   Windows-only, so not on Linux: the installer window (the script
+   started without arguments) - use the command line instead; and the
+   MP3 encoder of the disc install - the full Dark-Colony repository
+   already carries the MP3 tracks, so nothing is missing there.
+
+   * "No usable version of libssl was found": pwsh needs OpenSSL 1.1
+     or 3 for its SHA-256 checks.  A distribution that ships only
+     OpenSSL 4 (Ubuntu 26.10) has to lend it an OpenSSL 3: install
+     the distribution's libssl3 package if it still has one, or
+     unpack an OpenSSL 3 libssl.so.3 and libcrypto.so.3 into a folder
+     of your own and start pwsh with
+
+        LD_LIBRARY_PATH=/path/to/that/folder pwsh -NoProfile -File patcher/Apply-DarkColonyPatches.ps1 ...
+
+   * Wine's own powershell.exe is an empty stub and cannot run the
+     script - use the Linux pwsh.
+
+   * The game sits small in the top-left corner of a black screen:
+     Wine's X11 driver could not switch the display mode (under a
+     Wayland desktop it never really can).  Two steps: tell Wine to
+     use its Wayland driver, which draws the full-screen game at the
+     size of the screen itself,
+
+        wine reg add "HKCU\Software\Wine\Drivers" /v Graphics /d "wayland,x11" /f
+
+     and patch for a size with your screen's proportions (1920x1080
+     or 1280x720 on a 16:9 screen, 1920x1200 or 1280x800 on 16:10),
+     which then fills the screen exactly.  A size of another shape is
+     scaled with its proportions kept, but pinned to the top-left
+     corner instead of centred, so the black bar sits on one side
+     only.
+     "wine reg delete "HKCU\Software\Wine\Drivers" /v Graphics /f"
+     goes back to the X11 driver.
+
+   * The picture is too large, the right and bottom edges are cut off
+     (with the Wayland driver): the desktop's display scale is above
+     100 %.  Wine 10.0's Wayland driver counts in the desktop's scaled
+     pixels, so at 125 % it draws the game a quarter too large from
+     the top-left corner (at 1920x1080 only 1536x864 of the picture
+     is visible); at 100 % every game pixel is one screen pixel.  The
+     desktop launcher takes care of this itself: its start script
+     "Dark Colony Ultimate.sh" (beside the exe, written together with
+     the launcher) asks GNOME to switch to 100 % for the time the game
+     runs and switches back when the game quits - a temporary change,
+     nothing is saved, and a logout brings your own setting back
+     anyway.  Only when you start the exe by hand with "wine" do you
+     set the scale to 100 % yourself (Settings > Displays > Scale) or
+     start the game through that script instead.  Outside a GNOME
+     Wayland session the script changes nothing and simply starts the
+     game.
 
 
 ---------------------------------------------------------------------
